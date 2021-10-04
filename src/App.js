@@ -11,7 +11,7 @@ import Movie from './components/Movie'
 
 class App extends Component {
   state = {
-    movieTitle: 'Batman Begins',
+    movieTitle: 'The Flash',
   }
 
   render() {
@@ -22,7 +22,7 @@ class App extends Component {
           <Row>
             <Col>
               <Form.Group>
-                <Form.Label>Example select</Form.Label>
+                <Form.Label>Choose your movie!</Form.Label>
                 <Form.Control
                   as="select"
                   onChange={(e) =>
@@ -40,8 +40,8 @@ class App extends Component {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col>
+          <Row className="justify-content-center text-dark">
+            <Col xs={12} md={6}>
               <Movie movie={this.state.movieTitle} />
             </Col>
           </Row>
