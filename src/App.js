@@ -2,7 +2,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Component } from 'react'
 import Form from 'react-bootstrap/Form'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import Movie from './components/Movie'
 // import {Form} from 'react-bootstrap'
 
@@ -12,6 +12,7 @@ import Movie from './components/Movie'
 class App extends Component {
   state = {
     movieTitle: 'The Flash',
+    showMovieSection: true,
   }
 
   render() {
@@ -38,13 +39,25 @@ class App extends Component {
                   <option>The Flash</option>
                 </Form.Control>
               </Form.Group>
+              <Button
+                variant="danger"
+                onClick={() =>
+                  this.setState({
+                    showMovieSection: false,
+                  })
+                }
+              >
+                Remove movie
+              </Button>
             </Col>
           </Row>
-          <Row className="justify-content-center text-dark">
-            <Col xs={12} md={6}>
-              <Movie movie={this.state.movieTitle} />
-            </Col>
-          </Row>
+          {this.state.showMovieSection && (
+            <Row className="justify-content-center text-dark">
+              <Col xs={12} md={6}>
+                <Movie movie={this.state.movieTitle} />
+              </Col>
+            </Row>
+          )}
         </Container>
       </div>
     )

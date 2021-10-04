@@ -8,6 +8,21 @@ import Card from 'react-bootstrap/Card'
 
 class Movie extends Component {
 
+    timer = null
+
+    // feel free to skip this!
+    // constructor(props) {
+    //     super(props)
+    //     console.log("I'm the constructor!")
+    //     // 1st use of the constructor: another way of declaring the initial state
+    //     this.state = {
+    //         movieDetails: null,
+    //         test: false
+    //     }
+    //     // 2nd use of the constructor: bind 'this' to the event listeners
+    //     this.toggleTest = this.toggleTest.bind(this)
+    // }
+
     state = {
         // I want to store here all the movie details!
         movieDetails: null
@@ -34,6 +49,9 @@ class Movie extends Component {
         // we can initially fetch the movie details for the selected option in the dropdown!
         // this method just work in the MOUNTING phase!
         this.fetchMovieDetails()
+        this.timer = setInterval(() => {
+            console.log('another second passed away...')
+        }, 1000)
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -58,6 +76,24 @@ class Movie extends Component {
 
         // this is for managing the life of a component ALREADY MOUNTED into the dom
 
+        // componentDidUpdate is SUPER GENERIC! you need to narrow down the scenarios
+        // in which you want to re-invokate your function, your fetch, everything
+        // that can lead to a new setState()
+    }
+
+    toggleTest = () => {
+        this.setState({
+            test: true
+        })
+    }
+
+    componentWillUnmount = () => {
+        // performing some code a moment before the REMOVAL of this component from the DOM
+        console.log('bye bye')
+        // componentWillUnmount is mostly useful for closing pending connections or 
+        // clearing intervals or timeouts
+        clearInterval(this.timer)
+        // it's like a WILL :) tells what to do before being removed
     }
 
     // render() fires again every time there's a change in the PROPS or in the STATE!
@@ -66,7 +102,7 @@ class Movie extends Component {
             <div>
                 {
                     this.state.movieDetails ? (
-                        <Card>
+                        <Card onClick={this.toggleTest}>
                             <Card.Img variant="top" src={this.state.movieDetails.Poster} />
                             <Card.Body>
                                 <Card.Title>{this.state.movieDetails.Title}</Card.Title>
